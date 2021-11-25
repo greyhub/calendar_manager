@@ -25,7 +25,7 @@ class SignInView(View):
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
-                return redirect('calendarapp:calendar')
+                return redirect('events_calendar:calendar')
         context = {
             'form': forms
         }
