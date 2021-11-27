@@ -7,8 +7,8 @@ from events_calendar.views.other_views import *
 app_name = "events_calendar"
 
 urlpatterns = [
-    path("calender/", CalendarViewNew.as_view(), name="calendar"),
-    path("calenders/", CalendarView.as_view(), name="calendars"),
+    path("calendar/", CalendarViewNew.as_view(), name="calendar"),
+    path("calendars/", CalendarView.as_view(), name="calendars"),
     path("event/new/", create_event, name="event_new"),
     path("event/edit/<int:pk>/", EventEdit.as_view(), name="event_edit"),
     path("event/<int:event_id>/details/", event_details, name="event-detail"),
