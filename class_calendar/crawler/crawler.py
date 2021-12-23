@@ -12,9 +12,9 @@ class Crawler:
         options = Options()
         options.add_argument("--headless")
         if hide:
-            self.driver = webdriver.Firefox(executable_path='./geckodriver', options=options)
+            self.driver = webdriver.Firefox(executable_path='geckodriver', options=options)
         else:
-            self.driver = webdriver.Firefox(executable_path='./geckodriver')
+            self.driver = webdriver.Firefox(executable_path='geckodriver')
 
     def get_soup(self, url):
         self.driver.get(url)
