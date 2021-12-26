@@ -49,56 +49,53 @@ def get_token(path_file):
         print('An error occurred: %s' %error)
 
     
+def view_calendar():
+    # Call the calendar API
+    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+    print('Getting the upcoming 10 events')
+    events_result = service.events().list(calendarId='primary', timeMin=now, maxResults=10, singleEvents=True,orderBy='startTime').execute()
+    events = events_result.get('items',[])
 
-
-
-def view_calendar(service):
-  # Call the calendar API
-  now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-  print('Getting the upcoming 10 events')
-  events_result = service.events().list(calendarId='primary', timeMin=now, maxResults=10, singleEvents=True,orderBy='startTime').execute()
-  events = events_result.get('items',[])
-
-  if not events:
-    print('No upcoming events found.')
-    return
+    if not events:
+        print('No upcoming events found.')
+        return
 
   # Prints the start and name of the next 10 events
-  for event in events:
-    start = event['start'].get('dateTime', event['start'].get('date'))
-    end_time = event['end'].get('dateTime', event['end'].get('date'))
-    print(start,end_time,event['summary'])
+    for event in events:
+        start = event['start'].get('dateTime', event['start'].get('date'))
+        end_time = event['end'].get('dateTime', event['end'].get('date'))
+        print(start,end_time,event['summary'])
 
 
 def create_event(start_time_str, end_time_str, summary,description=None, location=None):
-  timezone = 'Asia/Ho_Chi_Minh'
-  matches_start = list(datefinder.find_dates(start_time_str))
-  matches_end = list(datefinder.find_dates(end_time_str))
-  if len(matches_start):
-    start_time = matches_start[0]
-    end_time = matches_end[0]
-  
-  event = {
-      'summary':summary,
-      'location':location,
-      'description': description,
-      'start':{
-          'dateTime': start_time.strftime("%Y-%m-%dT%H:%M:%S"),
-          'timeZone':'Asia/Ho_Chi_Minh',
-      },
-      'end':{
-          'dateTime': end_time.strftime("%Y-%m-%dT%H:%M:%S"),
-          'timeZone':'Asia/Ho_Chi_Minh',
-      },
-      'reminders':{
-          'useDefault':False,
-          'overrides': [
-                        {'method': 'email', 'minutes':24*60},
-                        {'method': 'popup', 'minutes':10},
-          ],
-      },
-  }
-  return service.events().insert(calendarId='primary',body=event).execute()
+    timezone = 'Asia/Ho_Chi_Minh'
+    matches_start = list(datefinder.find_dates(start_time_str))
+    matches_end = list(datefinder.find_dates(end_time_str))
+    if len(matches_start):
+        start_time = matches_start[0]
+        end_time = matches_end[0]
+    
+    event = {
+        'summary':summary,
+        'location':location,
+        'description': description,
+        'start':{
+            'dateTime': start_time.strftime("%Y-%m-%dT%H:%M:%S"),
+            'timeZone':'Asia/Ho_Chi_Minh',
+        },
+        'end':{
+            'dateTime': end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+            'timeZone':'Asia/Ho_Chi_Minh',
+        },
+        'reminders':{
+            'useDefault':False,
+            'overrides': [
+                            {'method': 'email', 'minutes':24*60},
+                            {'method': 'popup', 'minutes':10},
+            ],
+        },
+    }
+    return service.events().insert(calendarId='primary',body=event).execute()
 
 if __name__ == '__main__':
     path_file = 'F:\Desktop\THHT_13\calendar_manager\google_calendar\client_secret.json'
