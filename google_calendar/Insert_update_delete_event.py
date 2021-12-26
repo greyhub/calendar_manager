@@ -58,33 +58,33 @@ def main():
     except HttpError as error:
         print('An error occurred: %s' % error)
 
-    start_time = datetime.datetime(2021, 12, 26, 19, 30, 0)
-    end_time = start_time + timedelta(hours=5)
-    timezone = 'Asia/Ho_Chi_Minh'
+    # start_time = datetime.datetime(2021, 12, 26, 19, 30, 0)
+    # end_time = start_time + timedelta(hours=5)
+    # timezone = 'Asia/Ho_Chi_Minh'
 
-    event = {
-        'summary': 'AOEclien hoan',
-        'location': 'Ho Chi Minh',
-        'description': 'MI vs TBD',
-        'start': {
-            'dateTime': start_time.strftime("%Y-%m-%dT%H:%M:%S"),
-            'timeZone': timezone,
-        },
-        'end': {
-            'dateTime': end_time.strftime("%Y-%m-%dT%H:%M:%S"),
-            'timeZone': timezone,
-        },
-        'reminders': {
-            'useDefault': False,
-            'overrides': [
-            {'method': 'email', 'minutes': 24 * 60},
-            {'method': 'popup', 'minutes': 10},
-            ],
-        },
-    }
+    # event = {
+    #     'summary': 'AOEclien hoan',
+    #     'location': 'Ho Chi Minh',
+    #     'description': 'MI vs TBD',
+    #     'start': {
+    #         'dateTime': start_time.strftime("%Y-%m-%dT%H:%M:%S"),
+    #         'timeZone': timezone,
+    #     },
+    #     'end': {
+    #         'dateTime': end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+    #         'timeZone': timezone,
+    #     },
+    #     'reminders': {
+    #         'useDefault': False,
+    #         'overrides': [
+    #         {'method': 'email', 'minutes': 24 * 60},
+    #         {'method': 'popup', 'minutes': 10},
+    #         ],
+    #     },
+    # }
 
-    event = service.events().insert(calendarId='primary', body=event).execute()
-    print('Event created: %s' %(event.get('htmlLink')))
+    # event = service.events().insert(calendarId='primary', body=event).execute()
+    # print('Event created: %s' %(event.get('htmlLink')))
 
 if __name__ == '__main__':
     main()
