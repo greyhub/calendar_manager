@@ -8,6 +8,7 @@ Event Details
     <div class="container">
         <div class="clearfix">
             <a class="btn btn-primary left" href="{% url 'events_calendar:calendar' %}"> Calendar </a>
+            <a class="btn btn-info right mr-3" style="color: red;" href="{% url 'events_calendar:remove_event' event.pk%}">Delete Event</a>
             <a class="btn btn-info right mr-2" href="{% url 'events_calendar:event_edit' event.pk %}"> Edit Event </a>
         </div>
 
