@@ -70,7 +70,6 @@ def create_event(request):
         return HttpResponseRedirect(reverse("events_calendar:calendar"))
     return render(request, "event.html", {"form": form})
 
-
 class EventEdit(generic.UpdateView):
     model = Event
     fields = ["title", "description", "start_time", "end_time"]
@@ -118,7 +117,7 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
         events = Event.objects.get_all_events(user=request.user)
         events_month = Event.objects.get_running_events(user=request.user)
         event_list = []
-        # start: '2020-09-16T16:00:00'
+        # start: '2021-09-16T16:00:00'
         for event in events:
             event_list.append(
                 {
@@ -139,4 +138,10 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
             return redirect("events_calendar:calendar")
         context = {"form": forms}
         return render(request, "event.html", context)
+
+# def load_data(request):
+    
+
+
+
     

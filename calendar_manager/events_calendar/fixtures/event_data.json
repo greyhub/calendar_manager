@@ -1,0 +1,13 @@
+[
+    {
+        "model":"src.Event",
+        "pk":10,
+        "fields":{
+            "user":"1",
+            "title":"Tích hợp hệ thống",
+            "description":"IT5031",
+            "start_time":"2021-12-26T19:30:00+07:00",
+            "end_time":"2021-12-26T23:30:00+07:00"
+        }
+    }
+]
