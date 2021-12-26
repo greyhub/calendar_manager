@@ -4,7 +4,7 @@ import aiohttp_cors
 from aiohttp import web
 
 
-from apis.handler import RouteHandler
+from handler import RouteHandler
 
 
 app = web.Application()
