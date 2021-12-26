@@ -1,8 +1,12 @@
 import json
+import logging
+from pprint import pprint
+
 import requests
 from json.decoder import JSONDecodeError
 from response import success, ApiBadRequest, ApiInternalError
 from config import ExternalAPI
+from services import convert_class_time_table
 
 
 class RouteHandler:
@@ -11,7 +15,8 @@ class RouteHandler:
         body = await decode_request(request)
         request_data = json.dumps(body)
         time_table = requests.post(ExternalAPI.url, data=request_data, headers={'Content-Type': "application/json"})
-        response = time_table.json()
+        class_schedule = convert_class_time_table(time_table.json())
+        response = class_schedule
         return success(response)
 
     async def get_activities(self, request):
