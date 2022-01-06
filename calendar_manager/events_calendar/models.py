@@ -36,7 +36,7 @@ class Event(EventAbstract):
     """ Event model """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="events")
-    title = models.CharField(max_length=200, unique=True)
+    title = models.CharField(max_length=200, unique=False)
     description = models.TextField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
@@ -67,3 +67,27 @@ class EventMember(EventAbstract):
 
     def __str__(self):
         return str(self.user)
+
+class Group(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+class GroupMember(EventAbstract):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="group_member")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="group_member")
+    is_leader = models.BooleanField(default=False)
+    
+class GroupEvent(EventAbstract):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="group_events")
+    title = models.CharField(max_length=200, unique=False)
+    description = models.TextField()
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+
+    objects = EventManager()
+
+    def __str__(self):
+        return self.tittle
+        
