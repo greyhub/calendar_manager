@@ -1,3 +1,4 @@
+from re import template
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.views import generic
@@ -7,12 +8,11 @@ import calendar
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
-
-
+import json
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from events_calendar.models import *
 from events_calendar.utils import Calendar
-from events_calendar.forms import EventForm, AddMemberForm
-
+from events_calendar.forms import EventForm, AddMemberForm, AddGroupForm, AddGroupMemberForm, AddGroupEvent
 
 def get_date(req_day):
     if req_day:
@@ -64,11 +64,27 @@ def create_event(request):
             user=request.user,
             title=title,
             description=description,
-            start_time=start_time,
+            start_time=start_time,  
             end_time=end_time,
         )
         return HttpResponseRedirect(reverse("events_calendar:calendar"))
     return render(request, "event.html", {"form": form})
+
+@login_required(login_url="signup")
+def load_event(request):
+    with open('F:/Desktop/THHT_13/calendar_manager/calendar_manager/events_calendar/fixtures/event_data.json',encoding='utf-8') as event_data:
+        data_subjects = json.load(event_data)
+        for subject in data_subjects:
+            Event.objects.get_or_create(
+                user=request.user,
+                title=subject['title'],
+                description=subject['description'],
+                start_time=subject['start_time_str'],
+                end_time=subject['end_time_str'],
+            )
+        return HttpResponseRedirect(reverse("events_calendar:calendar"))
+
+
 
 class EventEdit(generic.UpdateView):
     model = Event
@@ -94,7 +110,7 @@ def add_eventmember(request, event_id):
             if member.count() <= 9:
                 user = forms.cleaned_data["user"]
                 EventMember.objects.create(event=event, user=user)
-                return redirect("events_calendar:calendar")
+                return redirect("events_calendar:event-detail", event_id)
             else:
                 print("--------------User limit exceed!-----------------")
     context = {"form": forms}
@@ -126,6 +142,7 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
                     "end": event.end_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
                 }
             )
+
         context = {"form": forms, "events": event_list, "events_month": events_month}
         return render(request, self.template_name, context)
 
@@ -139,7 +156,90 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
         context = {"form": forms}
         return render(request, "event.html", context)
 
-# def load_data(request):
+
+def create_group(request):
+    forms = AddGroupForm()
+    if request.method == "POST":
+        forms = AddGroupForm(request.POST)
+        if forms.is_valid():
+            instance = forms.save(commit=False)
+            instance.save()
+            GroupMember.objects.create(group_id=instance.id, user_id=request.user.id, is_leader=True)
+            return redirect('events_calendar:view_group')
+    context = {"form": forms}
+    return render(request, "add_group.html", context)
+
+def view_group(request):
+    groups = Group.objects.all()
+
+    paginator = Paginator(groups, 10)
+
+    page = request.GET.get('page')
+    groups = paginator.get_page(page)
+
+    return render(request, "view_group.html", {"groups": groups})
+
+def list_detail_group(request, pk):
+    group = Group.objects.get(id=pk)
+    groupmember = GroupMember.objects.filter(group_id=pk)
+    context = {"group": group, "groupmember": groupmember}
+    return render(request, "list_detail_group.html", context)
+
+def add_member_group(request, pk):
+    check_create_user_in_group = True
+    forms = AddGroupMemberForm()
+    if request.method == "POST":
+        forms = AddGroupMemberForm(request.POST)
+        if forms.is_valid():
+            members = GroupMember.objects.filter(group_id=pk)
+            if members.count() <= 9:
+                user = forms.cleaned_data["user"]
+                for member in members.all():
+                    if member.id == user.id:
+                        check_create_user_in_group  = False
+                        break
+
+                if check_create_user_in_group:
+                    GroupMember.objects.create(group_id=pk,user=user)
+
+                return redirect("events_calendar:list_detail_groupmember", pk)
+            else:
+                print("--------------User limit exceed!-----------------")
+    context = {"form": forms}
+    return render(request, "add_member_group.html", context)
+
+class GroupCalendarView(generic.View):
+    login_url = "accounts:sigin"
+    template_name = "group_calendar/calendar.html"
+    form_class = GroupEvent
+
+    def get(self, request, pk, *args, **kwargs):
+        forms = self.form_class()
+        members = list(GroupMember.objects.filter(group_id=pk).all())
+        name_group = Group.objects.get(id=pk)
+        event_list = []
+        color = ["black","green","red","blue","yellow"]
+        blue = "blue"
+        for index, member in enumerate(members):
+            setattr(member, 'color', color[index])
+            events = Event.objects.get_all_events(user=member.user)
+            events_month = Event.objects.get_running_events(user=member.user)
+            for event in events:
+                event_list.append(
+                    {
+                        "title": event.title,
+                        "start": event.start_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
+                        "end": event.end_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
+                        "color": color[index],
+                        "background": color[index],
+                    }
+                )
+
+        context = {"form":forms, "events": event_list, "members": members, "name_group":name_group, "blue":blue}
+        return render(request, self.template_name, context)
+
+
+
     
 
 
