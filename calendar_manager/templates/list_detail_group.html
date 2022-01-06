@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Event Details
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="clearfix">
+            <a class="btn btn-primary left" href="{% url 'events_calendar:calendar' %}"> Calendar Group </a>
+            <a class="btn btn-info right mr-2" href=""> Update Group </a>
+        </div>
+
+        <div class="clearfix">
+            <h3>Group Name: {{ group.name }}</h3>
+            <p>From <span style="color: gray;"></span> To <span style="color: gray;"></span></p>
+            <hr>
+            <p>Description: </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+            <h4 class="left" > Members of group</h4>
+            <a class="btn btn-success right" href="{% url 'events_calendar:add_group_member' group.id %}"> Add Member </a>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                  <th style="width: 10px">STT</th>
+                  <th>Name</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Leader</th>
+                  <th>Remove Member</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for member in groupmember %}
+                <tr role="row">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ member.user.first_name }} {{ member.user.last_name }}</td>
+                    <td>{{ member.user.username }}</td>
+                    <td>{{ member.user.email}}</td>
+                    <td>{{ member.is_leader }}</td>
+                    <td>
+                        <a class="btn btn-danger" href="{% url 'events_calendar:remove_event' member.id %}">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+        </table>
+    </div>
+{% endblock %}
