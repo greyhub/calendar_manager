@@ -7,15 +7,15 @@ Event Details
 {% block content %}
     <div class="container">
         <div class="clearfix">
-            <a class="btn btn-primary left" href="{% url 'events_calendar:calendar' %}"> Calendar Group </a>
-            <a class="btn btn-info right mr-2" href=""> Update Group </a>
+            <a class="btn btn-primary left" href="{% url 'events_calendar:calendar_group_member' group.id %}"> Calendar Group </a>
+            <a class="btn btn-info right mr-2" href=""> Recommend Calendars </a>
         </div>
 
         <div class="clearfix">
             <h3>Group Name: {{ group.name }}</h3>
             <p>From <span style="color: gray;"></span> To <span style="color: gray;"></span></p>
             <hr>
-            <p>Description: </p>
+            <p>Description: Try Hard</p>
         </div>
         <hr>
         <div class="clearfix">
@@ -42,11 +42,38 @@ Event Details
                     <td>{{ member.user.email}}</td>
                     <td>{{ member.is_leader }}</td>
                     <td>
-                        <a class="btn btn-danger" href="{% url 'events_calendar:remove_event' member.id %}">Remove</a>
+                        <a class="btn btn-danger" href="{% url 'events_calendar:remove_member_group' member.id %}">Remove</a>
                     </td>
                 </tr>
                 {% endfor %}
               </tbody>
         </table>
+
+        <div class="clearfix">
+            <h4 class="left">List Event of group:</h4>
+        </div>
+        <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+            <thead>
+                <tr role="row">
+                    <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 102.102px;">STT</th>
+                    <th href="#" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 300.312px;">Event Name</th>
+                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 200.281px;">Start Time</th>
+                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 200.281px;">End Time</th>
+                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in list_event %}
+                    <tr role="row" class="odd">
+                        <td class="sorting_1">{{ forloop.counter }}</td>
+                        <td>{{ event.title }}</td>
+                        <td>{{ event.start_time }}</td>
+                        <td>{{ event.end_time }}</td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
     </div>
 {% endblock %}

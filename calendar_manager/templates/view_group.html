@@ -29,15 +29,14 @@
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 261.641px;">SL</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Group Name</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">Edit</th>
+                                           
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for group in groups %}
                                             <tr role="row" class="odd">
                                                 <td class="sorting_1">{{ forloop.counter }}</td>
-                                                <td>{{ group.name }}</td>
-                                                <td>Edit information</td>
+                                                <td ><a style='color: blue;' href="{% url 'events_calendar:list_detail_groupmember' group.id %}"><div style="height:100%;width:100%">{{ group.name }}</div></td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
