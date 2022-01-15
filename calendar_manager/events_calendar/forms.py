@@ -66,7 +66,7 @@ class AddGroupMemberForm(forms.ModelForm):
 class AddGroupEvent(forms.ModelForm):
     class Meta:
         model = GroupEvent
-        fields = ["title", "description", "start_time", "end_time"]
+        fields = ["title", "description", "start_time", "end_time", "group"]
         widgets = {
             "title": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Enter event title"}
@@ -86,7 +86,7 @@ class AddGroupEvent(forms.ModelForm):
                 format="%Y-%m-%dT%H:%M",
             ),
         }
-        exclude = ["group"]
+        # exclude = ["group"]
     
     def clean(self):
         cleaned_data = super().clean()

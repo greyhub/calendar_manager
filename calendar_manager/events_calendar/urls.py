@@ -31,5 +31,6 @@ urlpatterns = [
     path("view/group", view_group, name="view_group"),
     path("list_detail/groupmember/<int:pk>/", list_detail_group, name="list_detail_groupmember"),
     path("add/member/groupmember/<int:pk>/", add_member_group, name="add_group_member"),
+    path("remove/member/groupmember/<int:pk>/", remove_member_group, name="remove_member_group"),
     path("calendar/groupmember/<int:pk>/", GroupCalendarView.as_view(), name="calendar_group_member")
 ]

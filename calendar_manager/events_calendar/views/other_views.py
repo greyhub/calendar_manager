@@ -1,5 +1,5 @@
 from re import template
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.utils.safestring import mark_safe
@@ -140,6 +140,7 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
                     "title": event.title,
                     "start": event.start_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
                     "end": event.end_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
+                    "url": reverse('events_calendar:event-detail', args=[event.id])
                 }
             )
 
@@ -182,7 +183,8 @@ def view_group(request):
 def list_detail_group(request, pk):
     group = Group.objects.get(id=pk)
     groupmember = GroupMember.objects.filter(group_id=pk)
-    context = {"group": group, "groupmember": groupmember}
+    list_event_of_group = GroupEvent.objects.filter(group_id=pk)
+    context = {"group": group, "groupmember": groupmember, "list_event":list_event_of_group}
     return render(request, "list_detail_group.html", context)
 
 def add_member_group(request, pk):
@@ -208,17 +210,23 @@ def add_member_group(request, pk):
     context = {"form": forms}
     return render(request, "add_member_group.html", context)
 
+def remove_member_group(request, pk):
+    obj = get_object_or_404(GroupMember, id=pk)
+    temp = obj.group.id
+    obj.delete()
+    return redirect("events_calendar:list_detail_groupmember",temp)
+
 class GroupCalendarView(generic.View):
     login_url = "accounts:sigin"
     template_name = "group_calendar/calendar.html"
-    form_class = GroupEvent
+    form_class = AddGroupEvent
 
     def get(self, request, pk, *args, **kwargs):
         forms = self.form_class()
         members = list(GroupMember.objects.filter(group_id=pk).all())
         name_group = Group.objects.get(id=pk)
         event_list = []
-        color = ["black","green","red","blue","yellow"]
+        color = ["blue","green","red","yellow","black","purple","brown","grey"]
         blue = "blue"
         for index, member in enumerate(members):
             setattr(member, 'color', color[index])
@@ -231,17 +239,25 @@ class GroupCalendarView(generic.View):
                         "start": event.start_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
                         "end": event.end_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
                         "color": color[index],
-                        "background": color[index],
+                        "textColor": color[index],
+                        "url": reverse('events_calendar:event-detail', args=[event.id])
                     }
                 )
-
         context = {"form":forms, "events": event_list, "members": members, "name_group":name_group, "blue":blue}
         return render(request, self.template_name, context)
 
+    def post(self, request, pk, *args, **kwargs):
+        forms = self.form_class(request.POST or None)
+        if forms.is_valid() and forms.is_valid():
+            form = forms.save(commit=False)
+            form.group_id = pk
+            form.save()
+            return redirect("events_calendar:list_detail_groupmember", pk)
+        context = {"form": forms}
+        return render(request, "group_event.html", context)
 
 
-    
-
-
-
-    
+def list_event_of_group(request, pk):
+    list_event = GroupEvent.objects.get(group_id = pk)
+    context = {"list_event":list_event}
+    return render(request, "list_event_of_group",context)
