@@ -297,7 +297,6 @@ def export_data_of_group(request, pk):
     print("Hello: ",form.is_valid())
 
     if request.POST and form.is_valid() :
-
         members = list(GroupMember.objects.filter(group_id=pk).all())
         event_list = []
         for index, member in enumerate(members):

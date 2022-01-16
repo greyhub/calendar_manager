@@ -1,10 +1,13 @@
 from __future__ import print_function
 
 import os.path
+import os
+
 import datetime
 import pickle
 from datetime import timedelta
 import datefinder
+import json
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -98,11 +101,19 @@ def create_event(start_time_str, end_time_str, summary,description=None, locatio
     return service.events().insert(calendarId='primary',body=event).execute()
 
 if __name__ == '__main__':
-    path_file = 'F:\Desktop\THHT_13\calendar_manager\google_calendar\client_secret.json'
+    path_file = 'F:\Desktop\THHT_13\calendar_manager\google_calendar\client_secret_nhatnam78.json'
     try:
         service = get_token(path_file)
         event = create_event("15 June 9 PM","15 June 10PM","Tich hop he thong")
         print('Event created: %s' % (event.get('htmlLink')))
+
+        with open('F:/Desktop/THHT_13/calendar_manager/calendar_manager/events_calendar/fixtures/event_data.json',encoding='utf-8') as event_data:
+            data_subjects = json.load(event_data)
+            for subjects in data_subjects:
+                event = create_event(subjects['start_time_str'],subjects['end_time_str'],subjects['title'],subjects['description'])
+                print('Event created: %s' % (event.get('htmlLink')))
+
+
     except HttpError as error:
         print('An error occurred: %s' %error)
     
