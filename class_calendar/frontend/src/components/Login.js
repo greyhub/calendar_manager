@@ -25,7 +25,7 @@ class Login extends Component {
         this.setState({
             email: value
         });
-        console.log('value', value)
+        // console.log('value', value)
     }
 
     updatePassword = (e) => {
