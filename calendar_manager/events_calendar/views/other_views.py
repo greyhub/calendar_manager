@@ -1,9 +1,11 @@
 from re import template
+import re
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.utils.safestring import mark_safe
-from datetime import timedelta, datetime, date
+from datetime import timedelta, date, datetime
+import datetime
 import calendar
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,7 +14,8 @@ import json
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from events_calendar.models import *
 from events_calendar.utils import Calendar
-from events_calendar.forms import EventForm, AddMemberForm, AddGroupForm, AddGroupMemberForm, AddGroupEvent
+from events_calendar.forms import EventForm, AddMemberForm, AddGroupForm, AddGroupMemberForm, AddGroupEvent, Recommendform
+import pandas as pd
 
 def get_date(req_day):
     if req_day:
@@ -138,8 +141,9 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
             event_list.append(
                 {
                     "title": event.title,
-                    "start": event.start_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
-                    "end": event.end_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
+                    "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
+                    "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+                    'display': 'list-item',
                     "url": reverse('events_calendar:event-detail', args=[event.id])
                 }
             )
@@ -231,19 +235,32 @@ class GroupCalendarView(generic.View):
         for index, member in enumerate(members):
             setattr(member, 'color', color[index])
             events = Event.objects.get_all_events(user=member.user)
-            events_month = Event.objects.get_running_events(user=member.user)
+            # events_month = Event.objects.get_running_events(user=member.user)
             for event in events:
                 event_list.append(
                     {
                         "title": event.title,
-                        "start": event.start_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
-                        "end": event.end_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
-                        "color": color[index],
-                        "textColor": color[index],
+                        "start": event.start_time.strftime("%Y-%m-%d %H:%M:%S"),
+                        "end": event.end_time.strftime("%Y-%m-%d %H:%M:%S"),
+                        "backgroundColor": color[index],
+                        "background": color[index],
                         "url": reverse('events_calendar:event-detail', args=[event.id])
                     }
                 )
-        context = {"form":forms, "events": event_list, "members": members, "name_group":name_group, "blue":blue}
+
+        list_event = GroupEvent.objects.filter(group_id = pk)
+        for event in list_event:
+            event_list.append(
+                {
+                    "title": event.title,
+                    "start": event.start_time.strftime("%Y-%m-%d %H:%M:%S"),
+                    "end": event.end_time.strftime("%Y-%m-%d %H:%M:%S"),
+                    "backgroundColor": "rgb(47, 224, 255)",
+                    "background": "rgb(47, 224, 255)"
+                }
+            )
+
+        context = {"form":forms, "events": event_list, "members": members, "name_group":name_group, "blue":blue, "pk":pk}
         return render(request, self.template_name, context)
 
     def post(self, request, pk, *args, **kwargs):
@@ -256,8 +273,54 @@ class GroupCalendarView(generic.View):
         context = {"form": forms}
         return render(request, "group_event.html", context)
 
+def remove_event_group(request,pk):
+    obj = get_object_or_404(GroupEvent, id=pk)
+    temp = obj.group.id
+    obj.delete()
+    return redirect("events_calendar:list_detail_groupmember",temp)
 
 def list_event_of_group(request, pk):
     list_event = GroupEvent.objects.get(group_id = pk)
     context = {"list_event":list_event}
     return render(request, "list_event_of_group",context)
+
+def export_data_of_group(request, pk):
+    form = Recommendform(request.POST or None)
+    try:
+        start_time = datetime.strptime(form["start_time"].value(), "%Y-%m-%dT%H:%M")
+        end_time = datetime.strptime(form["end_time"].value(), "%Y-%m-%dT%H:%M")
+        print(start_time, end_time)
+        print(start_time.isocalendar(), end_time.isocalendar())
+        print(start_time.isocalendar()[1], end_time.isocalendar()[1])
+    except:
+        print("None")
+    print("Hello: ",form.is_valid())
+
+    if request.POST and form.is_valid() :
+
+        members = list(GroupMember.objects.filter(group_id=pk).all())
+        event_list = []
+        for index, member in enumerate(members):
+            events = Event.objects.get_all_events(user=member.user)
+            for event in events:
+                event_start_time = datetime.strptime(event.start_time.strftime("%Y-%m-%d %H:%M:%S"),"%Y-%m-%d %H:%M:%S")
+                event_end_time = datetime.strptime(event.end_time.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
+                if event_start_time > datetime.strptime(start_time, "%Y-%m-%dT%H:%M") and  event_end_time < datetime.strptime(end_time, "%Y-%m-%dT%H:%M"):
+                    event_list.append(
+                        {
+                            "user_id": member.user.id,
+                            "leader": member.is_leader,
+                            "title": event.title,
+                            "start": event.start_time.strftime("%Y-%m-%d %H:%M:%S"),
+                            "end": event.end_time.strftime("%Y-%m-%d %H:%M:%S"),
+                        }
+                    )
+                
+        df = pd.DataFrame(event_list)
+        with open('Demo_data_1.json','w', encoding='utf-8') as f:
+            json.dump(event_list, f, ensure_ascii=False, indent=4)
+
+        return redirect("events_calendar:calendar_group_member", pk)
+
+    return render(request, "group_calendar/recommend_calendar.html", {"form": form})
+

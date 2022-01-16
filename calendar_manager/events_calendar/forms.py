@@ -100,3 +100,20 @@ class AddGroupEvent(forms.ModelForm):
         # input_formats to parse HTML5 datetime-local input to datetime field
         self.fields["start_time"].input_formats = ("%Y-%m-%dT%H:%M",)
         self.fields["end_time"].input_formats = ("%Y-%m-%dT%H:%M",)
+
+class Recommendform(forms.Form):
+    start_time = forms.DateField(widget=forms.DateInput(
+        attrs={"type": "datetime-local", "class": "form-control"},
+        format="%Y-%m-%d %H:%M",)
+    )
+    end_time = forms.DateField(widget=forms.DateInput(
+        attrs={"type": "datetime-local", "class": "form-control"},
+        format="%Y-%m-%d %H:%M:%S",
+    ))
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_time = cleaned_data.get("start_time")
+        end_time = cleaned_data.get("end_time")
+
+        return cleaned_data

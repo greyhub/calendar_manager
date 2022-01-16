@@ -27,10 +27,12 @@ urlpatterns = [
         name="running_events",
     ),
     path("load/calendar", load_event,name="load_ctt"),
+    path("export/data/<int:pk>", export_data_of_group, name="export_data"),
     path("create/group", create_group, name="add_group"),
     path("view/group", view_group, name="view_group"),
     path("list_detail/groupmember/<int:pk>/", list_detail_group, name="list_detail_groupmember"),
     path("add/member/groupmember/<int:pk>/", add_member_group, name="add_group_member"),
     path("remove/member/groupmember/<int:pk>/", remove_member_group, name="remove_member_group"),
+    path("remove/event/groupevent/<int:pk>/", remove_event_group, name='remove_event_group'),
     path("calendar/groupmember/<int:pk>/", GroupCalendarView.as_view(), name="calendar_group_member")
 ]
