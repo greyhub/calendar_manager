@@ -16,6 +16,11 @@ from events_calendar.models import *
 from events_calendar.utils import Calendar
 from events_calendar.forms import EventForm, AddMemberForm, AddGroupForm, AddGroupMemberForm, AddGroupEvent, Recommendform
 import pandas as pd
+from events_calendar.views.pipeline import pipeline
+
+path_to_demoData = 'F:/Desktop/THHT_13/calendar_manager/calendar_manager/optimize_calendar/data/Demo_data_1.json'
+path_to_Data = 'F:/Desktop/THHT_13/calendar_manager/calendar_manager/optimize_calendar/data/'
+path_to_recommendData = 'F:/Desktop/THHT_13/calendar_manager/calendar_manager/optimize_calendar/data/output/suggestion.json'
 
 def get_date(req_day):
     if req_day:
@@ -242,6 +247,7 @@ class GroupCalendarView(generic.View):
                         "title": event.title,
                         "start": event.start_time.strftime("%Y-%m-%d %H:%M:%S"),
                         "end": event.end_time.strftime("%Y-%m-%d %H:%M:%S"),
+                        'display': 'list-item',
                         "backgroundColor": color[index],
                         "background": color[index],
                         "url": reverse('events_calendar:event-detail', args=[event.id])
@@ -259,8 +265,25 @@ class GroupCalendarView(generic.View):
                     "background": "rgb(47, 224, 255)"
                 }
             )
+        
+        check_recommend = 0
+        try: 
+            with open(path_to_recommendData,encoding='utf-8') as event_data:
+                data_subjects = json.load(event_data)
+                for subject in data_subjects:
+                    event_list.append(
+                        {
+                            "title":subject['title'],
+                            "start": subject['start'],
+                            "end":subject['end'],
+                            "backgroundColor": "rgb(255, 191, 0)"
+                        }
+                    )
+                    check_recommend = 1
+        except:
+            print("None")
 
-        context = {"form":forms, "events": event_list, "members": members, "name_group":name_group, "blue":blue, "pk":pk}
+        context = {"form":forms, "events": event_list, "members": members, "name_group":name_group, "blue":blue, "pk":pk, "check_recommend":check_recommend}
         return render(request, self.template_name, context)
 
     def post(self, request, pk, *args, **kwargs):
@@ -296,7 +319,7 @@ def export_data_of_group(request, pk):
         print("None")
     print("Hello: ",form.is_valid())
 
-    if request.POST and form.is_valid() :
+    if request.POST and start_time.isocalendar()[1] == end_time.isocalendar()[1]:
         members = list(GroupMember.objects.filter(group_id=pk).all())
         event_list = []
         for index, member in enumerate(members):
@@ -304,7 +327,7 @@ def export_data_of_group(request, pk):
             for event in events:
                 event_start_time = datetime.strptime(event.start_time.strftime("%Y-%m-%d %H:%M:%S"),"%Y-%m-%d %H:%M:%S")
                 event_end_time = datetime.strptime(event.end_time.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
-                if event_start_time > datetime.strptime(start_time, "%Y-%m-%dT%H:%M") and  event_end_time < datetime.strptime(end_time, "%Y-%m-%dT%H:%M"):
+                if event_start_time > start_time and  event_end_time < end_time:
                     event_list.append(
                         {
                             "user_id": member.user.id,
@@ -316,9 +339,10 @@ def export_data_of_group(request, pk):
                     )
                 
         df = pd.DataFrame(event_list)
-        with open('Demo_data_1.json','w', encoding='utf-8') as f:
+        with open(path_to_demoData ,'w', encoding='utf-8') as f:
             json.dump(event_list, f, ensure_ascii=False, indent=4)
-
+        
+        # pipeline(input=path_to_demoData ,data_dir=path_to_Data,year=start_time.isocalendar()[0], week=start_time.isocalendar()[1])
         return redirect("events_calendar:calendar_group_member", pk)
 
     return render(request, "group_calendar/recommend_calendar.html", {"form": form})
