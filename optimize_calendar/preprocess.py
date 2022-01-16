@@ -1,9 +1,7 @@
 from os import path
 from re import I
 from time import time
-from typing import Tuple
 import pandas as pd
-import json
 from datetime import datetime
 
 
