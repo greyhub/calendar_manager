@@ -2,9 +2,6 @@
 {% load static %}
 {% block title %}Event Calendar{% endblock title %}
 
-{% block extracss %}
-  <link href="{% static 'calendar/main.css' %}" rel="stylesheet" />
-{% endblock extracss %}
 
 {% block breadcrumb %}
   <div>
@@ -25,7 +22,7 @@
                 <div id="external-events">
                     <h4 class="mb-4">Running Events</h4>
                     {% for event in events_month %}
-                      <div class="fc-event">
+                      <div class="fc-event"style="background-color:#3788d8">
                           <h3>{{ event.title }}</h3>
                           <p>From: {{ event.start_time }}</p>
                           <p>To: {{ event.end_time }}</p>
@@ -82,8 +79,9 @@
 {% endblock content %}
 
 {% block extrascripts %}
-  <script src="{% static 'calendar/main.js' %}"></script>
-  <script src="{% static 'calender/main.js' %}"></script>
+  <meta charset='utf-8' />
+  <link href="{% static 'fullcalendar/lib/main.css' %}" rel='stylesheet'/>
+  <script src="{% static 'fullcalendar/lib/main.js' %}"></script>
   <script>
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -93,8 +91,9 @@
           headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,dayGridYear'
           },
+          
           initialDate: today,
           navLinks: true, // can click day/week names to navigate views
           selectable: true,
@@ -113,34 +112,12 @@
           // bangladesh Holidays
           // events: 'bn.bd#holiday@group.v.calendar.google.com',
           eventClick: function(arg) {
-            if (confirm('Show information detail?')) {
               arg.event.remove()
-            }
           },
           editable: true,
           dayMaxEvents: true, // allow "more" link when too many events
-          events: {{ events|safe }},
-          // events: [
-          //   {
-          //     title: 'All Day Event',
-          //     start: '2021-06-26'
-          //   },
-          //   {
-          //     groupId: 999,
-          //     title: 'Repeating Event',
-          //     start: '2020-09-16T16:00:00'
-          //   },
-          //   {
-          //     title: 'Conference',
-          //     start: '2020-09-11',
-          //     end: '2020-09-13'
-          //   },
-          //   {
-          //     title: 'Click for Google',
-          //     url: 'http://google.com/',
-          //     start: '2020-09-28'
-          //   }
-          // ]
+          events: {{ events|safe }}
+        
         });
 
         calendar.render();

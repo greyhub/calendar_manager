@@ -13,7 +13,7 @@
   </div>
   <ul class="app-breadcrumb breadcrumb">
       <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-      <li class="breadcrumb-item"><a href="#">Calendar</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'events_calendar:export_data' pk %}">Recommend DateTime</a></li>
   </ul>
 {% endblock breadcrumb %}
 
@@ -33,7 +33,13 @@
                     {% empty %}
                       <p>No Member in Group</p>
                     {% endfor %}
+                    <h4 class="mb-2">Group:</h4>
+                    <div class="fc-event" style="background-color: rgb(47, 224, 255)">
+                      <h4>{{ name_group }}</h4>
+                      <p></p>
+                    </div>
                 </div>
+                
             </div>
             <div class="col-md-9">
                 <div id="calendar"></div>
@@ -67,6 +73,10 @@
                                     <label for="message-text" class="col-form-label">End Date:</label>
                                     {{ form.end_time }}
                                 </div>
+                                <div class="form-group">
+                                  <label for="message-text" class="col-form-label">Group:</label>
+                                  {{ form.group }}
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button id="modalClose2" type="button" class="btn btn-danger">Close</button>
@@ -93,8 +103,9 @@
           headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
           },
+          initialView: 'timeGridWeek',
           initialDate: today,
           navLinks: true, // can click day/week names to navigate views
           selectable: true,
@@ -120,29 +131,8 @@
           editable: true,
           dayMaxEvents: true, // allow "more" link when too many events
           events: {{ events|safe }},
-          // events: [
-          //   {
-          //     title: 'All Day Event',
-          //     start: '2021-06-26'
-          //   },
-          //   {
-          //     groupId: 999,
-          //     title: 'Repeating Event',
-          //     start: '2020-09-16T16:00:00'
-          //   },
-          //   {
-          //     title: 'Conference',
-          //     start: '2020-09-11',
-          //     end: '2020-09-13'
-          //   },
-          //   {
-          //     title: 'Click for Google',
-          //     url: 'http://google.com/',
-          //     start: '2020-09-28'
-          //   }
-          // ]
-        });
 
+        });
         calendar.render();
       });
       const closeBtn1 = document.getElementById('modalClose1');

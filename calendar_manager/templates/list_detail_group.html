@@ -1,14 +1,15 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Event Calendar{% endblock title %}
 
-{% block title %}
-Event Details
-{% endblock %}
+{% block extracss %}
+  <link href="{% static 'calendar/main.css' %}" rel="stylesheet" />
+{% endblock extracss %}
 
 {% block content %}
     <div class="container">
         <div class="clearfix">
             <a class="btn btn-primary left" href="{% url 'events_calendar:calendar_group_member' group.id %}"> Calendar Group </a>
-            <a class="btn btn-info right mr-2" href=""> Recommend Calendars </a>
         </div>
 
         <div class="clearfix">
@@ -56,10 +57,10 @@ Event Details
             <thead>
                 <tr role="row">
                     <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 102.102px;">STT</th>
-                    <th href="#" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 300.312px;">Event Name</th>
+                    <th href="#" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 200.312px;">Event Name</th>
                     <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 200.281px;">Start Time</th>
                     <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 200.281px;">End Time</th>
-                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">Edit</th>
+                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">Remove</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,11 +70,12 @@ Event Details
                         <td>{{ event.title }}</td>
                         <td>{{ event.start_time }}</td>
                         <td>{{ event.end_time }}</td>
-
+                        <td>
+                            <a class="btn btn-danger" href="{% url 'events_calendar:remove_event_group' event.id %}">Remove</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-
     </div>
 {% endblock %}
