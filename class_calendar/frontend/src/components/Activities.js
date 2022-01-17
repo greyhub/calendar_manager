@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 
-const header = ["STT","Tên hoạt động", "Ngày tạo", "Ngày bắt đầu", "Ngày kết thúc", "Link hoạt động"];
+const header = ["No","Name", "Created Date", "Start Date", "End Date", "Referral Link"];
 
 class Activities extends Component {
 	constructor(props) {
@@ -52,14 +52,14 @@ class Activities extends Component {
                                     <td>{data.StartTime}</td>
                                     <td>{data.FinishTime}</td>
 									<td><a href={`https://ctsv.hust.edu.vn/#/hoat-dong/${data.ACode}/chi-tiet`}>
-										Link Hoạt Động
+										link to detail
 									</a></td>
                                 </tr>
                             );
                         })}
                         </tbody>
                     </table>
-					<Link to="/">Login Here</Link>
+					{/* <Link to="/">Login Here</Link> */}
                 </div>
             )
 		}
@@ -70,7 +70,7 @@ class Activities extends Component {
 						<input type="submit" value="Show activities"/>
 					</form>
 
-					<Link to="/">Login Here</Link>
+					{/* <Link to="/">Login Here</Link> */}
 				</div>
 			);
 		}

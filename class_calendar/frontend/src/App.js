@@ -61,14 +61,14 @@ class App extends Component {
 
             <h3>CT<span>SV</span></h3>
 
-            <p className="footer-company-name">CTSV &copy; 2019</p>
+            <p className="footer-company-name">CTSV &copy; 2022</p>
           </div>
 
           <div className="footer-center">
 
             <div>
               <i className="fa fa-map-marker"></i>
-              <p><span>21 Revolution Street</span> Delhi, India</p>
+              <p><span>1 Dai Co Viet Street</span> Hanoi, Vietnam</p>
             </div>
 
 
@@ -78,7 +78,7 @@ class App extends Component {
           <div className="footer-right">
 
             <p className="footer-company-about">
-              <span>About the company</span>
+              <span>About CTSV</span>
               
             </p>
 

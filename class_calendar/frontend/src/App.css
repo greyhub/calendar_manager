@@ -206,7 +206,7 @@ footer{
   display: inline-block;
   color: #ffffff;
   vertical-align: middle;
-  margin:0;
+  margin-left: 80px;
  }
   
  .footer-distributed .footer-center p span{
@@ -230,7 +230,7 @@ footer{
   color:  #92999f;
   font-size: 13px;
   font-weight: normal;
-  margin: 0;
+  margin-left: 350px;
  }
   
  .footer-distributed .footer-company-about span{

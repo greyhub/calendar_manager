@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
-const header = ["STT", "SubjectName", "SubjectId", "ClassID", "TimeStart", "TimeEnd"];
+const header = ["No", "Subject Name", "Subject ID", "Class ID", "Start Time", "End Time"];
 
 
 class Login extends Component {
@@ -89,7 +89,7 @@ class Login extends Component {
                         })}
                         </tbody>
                     </table>
-                    <Link to="/activities">Watch list activities</Link>
+                    {/* <Link to="/activities">Watch list activities</Link> */}
                 </div>
             )
         } else {
@@ -120,7 +120,7 @@ class Login extends Component {
                         <input type="submit" value="Login"/>
                     </form>
 
-                    <Link to="/activities">Watch list activities.</Link>
+                    {/* <Link to="/activities">Watch list activities.</Link> */}
 
                 </div>
 
