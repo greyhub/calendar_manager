@@ -18,7 +18,7 @@ def convertTime(s):
 # print(convertTime("2022-01-01 15:05:00"))
 
 
-def read_data(input, dir='data/'):
+def read_data(input, dir):
 
     _data = pd.read_json(input, orient='records').set_index('user_id')
     for i in _data.index.unique():
@@ -48,12 +48,12 @@ def read_data(input, dir='data/'):
             print(j)
             __person = _person.loc[j]
             __name = '_'.join([str(j[0]), str(j[1]), name])
-            __person.to_csv('data/'+'tmp/'+__name+'.csv', index=False)
-            std_data(input='data/'+'tmp/'+__name+'.csv', output=__name+'.csv', dir=dir+__dir)
+            __person.to_csv(dir+'tmp/'+__name+'.csv', index=False)
+            std_data(input=dir+'tmp/'+__name+'.csv', output=__name+'.csv', dir=dir+__dir)
     return
 
-def std_data(input, output, dir='data/'):
-    _fmtperson = pd.read_csv("data/data_format.csv")
+def std_data(input, output, dir):
+    _fmtperson = pd.read_csv('/home/luong/Documents/hust/20211/tich-hop-httt/calendar_manager/calendar_manager/events_calendar/views/data/'+'data_format.csv')
     _fmtperson = _fmtperson.set_index('Hour')
 
     _person = pd.read_csv(input)
@@ -63,22 +63,22 @@ def std_data(input, output, dir='data/'):
         _dayOfWeek = row['dayOfWeek']
         _start = row['hour_start']
         _end = row['hour_end']
-        if _start < 9 and _end < 17:
+        if _start < 9 and _end >= 9:
             _start = 9
-        if _start >= 9 and _end >= 17:
+        if _start < 17 and _end > 17:
             _end = 17
         if _start >= 9 and _end < 17:
             if _start == _end:
-                _fmtperson.loc[_start, _dayOfWeek] = 1
+                _fmtperson.loc[_start-1, _dayOfWeek] = 1
             else:
-                for j in range(_start, _end+1):
+                for j in range(_start-1, _end+1):
                     _fmtperson.loc[j, _dayOfWeek] = 1
 
     _fmtperson.to_csv(dir+output)
     print('Saved to', dir+output)
     return
 
-def preprocess(input, dir='data/'):
+def preprocess(input, dir):
     read_data(input=input, dir=dir)
     return
 

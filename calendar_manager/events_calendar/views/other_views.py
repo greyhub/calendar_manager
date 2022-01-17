@@ -17,10 +17,13 @@ from events_calendar.utils import Calendar
 from events_calendar.forms import EventForm, AddMemberForm, AddGroupForm, AddGroupMemberForm, AddGroupEvent, Recommendform
 import pandas as pd
 from events_calendar.views.pipeline import pipeline
+import os
 
-path_to_demoData = 'F:/Desktop/THHT_13/calendar_manager/calendar_manager/optimize_calendar/data/Demo_data_1.json'
-path_to_Data = 'F:/Desktop/THHT_13/calendar_manager/calendar_manager/optimize_calendar/data/'
-path_to_recommendData = 'F:/Desktop/THHT_13/calendar_manager/calendar_manager/optimize_calendar/data/output/suggestion.json'
+path_to_integration = '/home/luong/Documents/hust/20211/tich-hop-httt/calendar_manager/calendar_manager/events_calendar/fixtures/event_data.json'
+path_to_integration_google = '/home/luong/Documents/hust/20211/tich-hop-httt/calendar_manager/google_calendar/data.json'
+path_to_demoData = '/home/luong/Documents/hust/20211/tich-hop-httt/calendar_manager/calendar_manager/events_calendar/views/data/Demo_data_1.json'
+path_to_Data = '/home/luong/Documents/hust/20211/tich-hop-httt/calendar_manager/calendar_manager/events_calendar/views/data/'
+path_to_recommendData = '/home/luong/Documents/hust/20211/tich-hop-httt/calendar_manager/calendar_manager/events_calendar/views/data/output/suggestion.json'
 
 def get_date(req_day):
     if req_day:
@@ -80,7 +83,8 @@ def create_event(request):
 
 @login_required(login_url="signup")
 def load_event(request):
-    with open('F:/Desktop/THHT_13/calendar_manager/calendar_manager/events_calendar/fixtures/event_data.json',encoding='utf-8') as event_data:
+
+    with open(path_to_integration,encoding='utf-8') as event_data:
         data_subjects = json.load(event_data)
         for subject in data_subjects:
             Event.objects.get_or_create(
@@ -89,8 +93,23 @@ def load_event(request):
                 description=subject['description'],
                 start_time=subject['start_time_str'],
                 end_time=subject['end_time_str'],
-            )
-        return HttpResponseRedirect(reverse("events_calendar:calendar"))
+            ) 
+    events = Event.objects.get_all_events(user=request.user)
+    event_list = []
+    # start: '2021-09-16T16:00:00'
+    for event in events:
+        event_list.append(
+            {
+                "title": event.title,
+                "description": event.description,
+                "start_time_str": event.start_time.strftime("%Y-%m-%d %H:%M:%S"),
+                "end_time_str": event.end_time.strftime("%Y-%m-%d %H:%M:%S"),
+            }
+        )
+    with open(path_to_integration_google,'w',encoding='utf-8') as f:
+        json.dump(event_list, f, ensure_ascii=False, indent=4)
+
+    return HttpResponseRedirect(reverse("events_calendar:calendar"))
 
 
 
@@ -146,8 +165,8 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
             event_list.append(
                 {
                     "title": event.title,
-                    "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
-                    "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+                    "start": event.start_time.strftime("%Y-%m-%d %H:%M:%S"),
+                    "end": event.end_time.strftime("%Y-%m-%d %H:%M:%S"),
                     'display': 'list-item',
                     "url": reverse('events_calendar:event-detail', args=[event.id])
                 }
@@ -231,6 +250,7 @@ class GroupCalendarView(generic.View):
     form_class = AddGroupEvent
 
     def get(self, request, pk, *args, **kwargs):
+        check_recommend = 0
         forms = self.form_class()
         members = list(GroupMember.objects.filter(group_id=pk).all())
         name_group = Group.objects.get(id=pk)
@@ -262,11 +282,11 @@ class GroupCalendarView(generic.View):
                     "start": event.start_time.strftime("%Y-%m-%d %H:%M:%S"),
                     "end": event.end_time.strftime("%Y-%m-%d %H:%M:%S"),
                     "backgroundColor": "rgb(47, 224, 255)",
-                    "background": "rgb(47, 224, 255)"
+                    "background": "rgb(47, 224, 255)",
+                    "url": reverse('events_calendar:list_detail_groupmember', args=[pk])
                 }
             )
-        
-        check_recommend = 0
+
         try: 
             with open(path_to_recommendData,encoding='utf-8') as event_data:
                 data_subjects = json.load(event_data)
@@ -280,6 +300,8 @@ class GroupCalendarView(generic.View):
                         }
                     )
                     check_recommend = 1
+                os.remove(path_to_recommendData)
+                
         except:
             print("None")
 
@@ -292,7 +314,7 @@ class GroupCalendarView(generic.View):
             form = forms.save(commit=False)
             form.group_id = pk
             form.save()
-            return redirect("events_calendar:list_detail_groupmember", pk)
+            return redirect("events_calendar:calendar_group_member", pk)
         context = {"form": forms}
         return render(request, "group_event.html", context)
 
@@ -342,7 +364,7 @@ def export_data_of_group(request, pk):
         with open(path_to_demoData ,'w', encoding='utf-8') as f:
             json.dump(event_list, f, ensure_ascii=False, indent=4)
         
-        # pipeline(input=path_to_demoData ,data_dir=path_to_Data,year=start_time.isocalendar()[0], week=start_time.isocalendar()[1])
+        pipeline(input=path_to_demoData ,data_dir=path_to_Data,year=start_time.isocalendar()[0], week=start_time.isocalendar()[1])
         return redirect("events_calendar:calendar_group_member", pk)
 
     return render(request, "group_calendar/recommend_calendar.html", {"form": form})

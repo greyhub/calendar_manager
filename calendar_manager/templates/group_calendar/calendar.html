@@ -131,9 +131,7 @@
           // bangladesh Holidays
           // events: 'bn.bd#holiday@group.v.calendar.google.com',
           eventClick: function(arg) {
-            if (confirm('Are you sure you want see this event detail?')) {
-              arg.event.remove()
-            }
+            arg.event.remove()
           },
           editable: true,
           dayMaxEvents: true, // allow "more" link when too many events
