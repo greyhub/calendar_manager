@@ -1,0 +1,194 @@
+[
+    {
+      "title":"Phân tích nghiệp vụ",
+      "description":"IT5031",
+      "start_time_str":"2021-12-29T19:30:00+07:00",
+      "end_time_str":"2021-12-29T23:30:00+07:00"  
+    },
+    {
+        "title":"Phân tích nghiệp vụ",
+        "description":"IT5031",
+        "start_time_str":"2022-1-5T19:30:00+07:00",
+        "end_time_str":"2022-1-5T23:30:00+07:00"  
+    },
+    {
+        "title":"Phân tích nghiệp vụ",
+        "description":"IT5031",
+        "start_time_str":"2022-1-12T19:30:00+07:00",
+        "end_time_str":"2022-1-12T23:30:00+07:00"  
+    },
+    {
+        "title":"Phân tích nghiệp vụ",
+        "description":"IT5031",
+        "start_time_str":"2022-1-19T19:30:00+07:00",
+        "end_time_str":"2022-1-19T23:30:00+07:00"  
+    },
+    {
+        "start_time_str": "2022-01-03 06:45:00",
+        "end_time_str": "2022-01-03 10:05:00",
+        "title": "IT4868-Khai phá Web",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K62S",
+        "location": "TC-207"
+    },
+    {
+        "start_time_str": "2022-01-03 10:15:00",
+        "end_time_str": "2022-01-03 11:45:00",
+        "title": "IT5419-Tích hợp Hệ thống thông tin",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K62S",
+        "location": "TC-209"
+    },
+    {
+        "start_time_str": "2022-01-04 06:45:00",
+        "end_time_str": "2022-01-04 09:10:00",
+        "title": "IT4079-Ngôn ngữ và phương pháp dịch",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K62S",
+        "location": "TC-210"
+    },
+    {
+        "start_time_str": "2022-01-04 15:05:00",
+        "end_time_str": "2022-01-04 17:30:00",
+        "title": "IT3011-Cấu trúc dữ liệu và thuật toán",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính 03,04-K65C",
+        "location": "D9-105"
+    },
+    {
+        "start_time_str": "2022-01-05 06:45:00",
+        "end_time_str": "2022-01-05 09:10:00",
+        "title": "IT3080-Mạng máy tính",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K64S",
+        "location": "TC-204"
+    },
+    {
+        "start_time_str": "2022-01-06 10:15:00",
+        "end_time_str": "2022-01-06 11:45:00",
+        "title": "IT5419-Tích hợp Hệ thống thông tin",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K62S",
+        "location": "TC-209"
+    },
+    {
+        "start_time_str": "2022-01-06 14:10:00",
+        "end_time_str": "2022-01-06 17:30:00",
+        "title": "IT4015-Nhập môn an toàn thông tin",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính - KT máy tính-K64C",
+        "location": "C1-302"
+    },
+    {
+      "start_time_str": "2022-01-07 15:05:00",
+      "end_time_str": "2022-01-07 17:30:00",
+      "title": "IT3080-Mạng máy tính",
+      "description": "Loại môn học: TN. Tuần học: 7,10,12,14,16. Đối tượng học: IT3080-N06",
+      "location": "B1-204"
+    },
+    {
+        "start_time_str": "2022-01-10 06:45:00",
+        "end_time_str": "2022-01-10 10:05:00",
+        "title": "IT4868-Khai phá Web",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K62S",
+        "location": "TC-207"
+    },
+    {
+        "start_time_str": "2022-01-10 10:15:00",
+        "end_time_str": "2022-01-10 11:45:00",
+        "title": "IT5419-Tích hợp Hệ thống thông tin",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K62S",
+        "location": "TC-209"
+    },
+    {
+        "start_time_str": "2022-01-11 06:45:00",
+        "end_time_str": "2022-01-11 09:10:00",
+        "title": "IT4079-Ngôn ngữ và phương pháp dịch",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K62S",
+        "location": "TC-210"
+    },
+    {
+        "start_time_str": "2022-01-11 15:05:00",
+        "end_time_str": "2022-01-11 17:30:00",
+        "title": "IT3011-Cấu trúc dữ liệu và thuật toán",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính 03,04-K65C",
+        "location": "D9-105"
+    },
+    {
+        "start_time_str": "2022-01-12 06:45:00",
+        "end_time_str": "2022-01-12 09:10:00",
+        "title": "IT3080-Mạng máy tính",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K64S",
+        "location": "TC-204"
+    },
+    {
+        "start_time_str": "2022-01-13 10:15:00",
+        "end_time_str": "2022-01-13 11:45:00",
+        "title": "IT5419-Tích hợp Hệ thống thông tin",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K62S",
+        "location": "TC-209"
+    },
+    {
+        "start_time_str": "2022-01-13 14:10:00",
+        "end_time_str": "2022-01-13 17:30:00",
+        "title": "IT4015-Nhập môn an toàn thông tin",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính - KT máy tính-K64C",
+        "location": "C1-302"
+    },
+    {
+        "start_time_str": "2022-01-14 15:05:00",
+        "end_time_str": "2022-01-14 17:30:00",
+        "title": "IT3080-Mạng máy tính",
+        "description": "Loại môn học: TN. Tuần học: 7,10,12,14,16. Đối tượng học: IT3080-N06",
+        "location": "B1-204"
+    },
+    {
+        "start_time_str": "2022-01-17 06:45:00",
+        "end_time_str": "2022-01-17 10:05:00",
+        "title": "IT4868-Khai phá Web",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K62S",
+        "location": "TC-207"
+    },
+    {
+        "start_time_str": "2022-01-17 10:15:00",
+        "end_time_str": "2022-01-17 11:45:00",
+        "title": "IT5419-Tích hợp Hệ thống thông tin",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K62S",
+        "location": "TC-209"
+    },
+    {
+        "start_time_str": "2022-01-18 06:45:00",
+        "end_time_str": "2022-01-18 09:10:00",
+        "title": "IT4079-Ngôn ngữ và phương pháp dịch",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K62S",
+        "location": "TC-210"
+    },
+    {
+        "start_time_str": "2022-01-18 15:05:00",
+        "end_time_str": "2022-01-18 17:30:00",
+        "title": "IT3011-Cấu trúc dữ liệu và thuật toán",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính 03,04-K65C",
+        "location": "D9-105"
+    },
+    {
+        "start_time_str": "2022-01-19 06:45:00",
+        "end_time_str": "2022-01-19 09:10:00",
+        "title": "IT3080-Mạng máy tính",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K64S",
+        "location": "TC-204"
+    },
+    {
+        "start_time_str": "2022-01-20 10:15:00",
+        "end_time_str": "2022-01-20 11:45:00",
+        "title": "IT5419-Tích hợp Hệ thống thông tin",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính-K62S",
+        "location": "TC-209"
+    },
+    {
+        "start_time_str": "2022-01-20 14:10:00",
+        "end_time_str": "2022-01-20 17:30:00",
+        "title": "IT4015-Nhập môn an toàn thông tin",
+        "description": "Loại môn học: LT+BT. Tuần học: 1-8,10-17. Đối tượng học: KH máy tính - KT máy tính-K64C",
+        "location": "C1-302"
+    },
+    {
+        "start_time_str": "2022-01-21 15:05:00",
+        "end_time_str": "2022-01-21 17:30:00",
+        "title": "IT3080-Mạng máy tính",
+        "description": "Loại môn học: TN. Tuần học: 7,10,12,14,16. Đối tượng học: IT3080-N06",
+        "location": "B1-204"
+    }
+  ]

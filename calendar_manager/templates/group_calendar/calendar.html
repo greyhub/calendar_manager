@@ -1,0 +1,154 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Event Calendar{% endblock title %}
+
+{% block extracss %}
+  <link href="{% static 'calendar/main.css' %}" rel="stylesheet" />
+{% endblock extracss %}
+
+{% block breadcrumb %}
+  <div>
+      <h1><i class="fa fa-calendar"></i> Calendar</h1>
+      <p>Event Calendar</p>
+  </div>
+  <ul class="app-breadcrumb breadcrumb">
+      <!-- <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li> -->
+      <li class="breadcrumb-item"><a style="font-weight: 600;color: #fff; background-color: #009688; padding: 5px 10px; border: solid 1px; border-radius: 5px ;" href="{% url 'events_calendar:export_data' pk %}">Recommend DateTime</a></li>
+  </ul>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile row">
+            <div class="col-md-3">
+                <div id="external-events">
+                    <h2 class="mb-4">Group name : {{ name_group }} </h2>
+                    <h4 class="mb-2">Members:</h4>
+                    {% for member in members %}
+                      <div class="fc-event" style="background-color:{{ member.color }}">
+                          <h4 style="font-size: 13px !important; margin-bottom: 0px; ">{{ member.user.email }}</h4>
+                          <p></p>
+                      </div>
+                    {% empty %}
+                      <p>No Member in Group</p>
+                    {% endfor %}
+                    <h4 class="mb-3">Group:</h4>
+                    <div class="fc-event" style="background-color: rgb(82, 20, 76)">
+                      <h5 style="font-size: 13px !important; margin-bottom: 0px; ">Metting of: {{ name_group }}</h5>
+                      <p></p>
+                    </div>
+                    {% if check_recommend != 0 %}
+                    <h4 class="mb-2">Recommend datetime:</h4>
+                    <div class="fc-event" style="background-color: rgba(218, 167, 15, 0.692)">
+                      <h4> {{ name_group }}</h4>
+                      <p></p>
+                    </div>
+                    {% endif %}
+                </div>
+                
+            </div>
+            <div class="col-md-9">
+                <div id="calendar"></div>
+            </div>
+
+            <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title text-white" id="exampleModalLongTitle">Add New Event</h5>
+                            <button id="modalClose1" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Event Title:</label>
+                                    {{ form.title }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Description:</label>
+                                    {{ form.description }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Start Date:</label>
+                                    {{ form.start_time }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">End Date:</label>
+                                    {{ form.end_time }}
+                                </div>
+                                <div class="form-group">
+                                  <label for="message-text" class="col-form-label">Group:</label>
+                                  {{ form.group }}
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="modalClose2" type="button" class="btn btn-danger">Close</button>
+                                <button name="event_add_1" type="submit" value="Submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extrascripts %}
+  <script src="{% static 'calendar/main.js' %}"></script>
+  <script src="{% static 'calender/main.js' %}"></script>
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var today = new Date();
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+          initialView: 'timeGridWeek',
+          initialDate: today,
+          navLinks: true, // can click day/week names to navigate views
+          selectable: true,
+          selectMirror: true,
+          select: function(arg) {
+            console.log('clicked')
+            var modal = document.getElementById('eventModal')
+            modal.style.display = 'block'
+            calendar.unselect()
+          },
+          // THIS KEY WON'T WORK IN PRODUCTION!!!
+          // To make your own Google API key, follow the directions here:
+          // http://fullcalendar.io/docs/google_calendar/
+          // googleCalendarApiKey: 'AIzaSyCqCxjjLtjbtkX37aOtWB8OfwBLy_6QuYk',
+
+          // bangladesh Holidays
+          // events: 'bn.bd#holiday@group.v.calendar.google.com',
+          eventClick: function(arg) {
+            arg.event.remove()
+          },
+          editable: true,
+          dayMaxEvents: true, // allow "more" link when too many events
+          events: {{ events|safe }},
+
+        });
+        calendar.render();
+      });
+      const closeBtn1 = document.getElementById('modalClose1');
+      const closeBtn2 = document.getElementById('modalClose2');
+      closeBtn1.addEventListener('click',()=>{
+        const eventModal = document.getElementById('eventModal')
+        eventModal.style.display = 'none';
+      });
+      closeBtn2.addEventListener('click',()=>{
+        const eventModal = document.getElementById('eventModal')
+        eventModal.style.display = 'none';
+      });
+  </script>
+{% endblock extrascripts %}
