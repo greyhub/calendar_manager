@@ -56,6 +56,10 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+## Generate token from Google Calendar
+
+[Google Calendar API in Python| How to Get Started](https://www.youtube.com/watch?v=eRHvfNKcwMQ&t=575s&ab_channel=Cndro)
+
 ## References
 
 [Django](https://www.djangoproject.com/)
