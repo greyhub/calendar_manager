@@ -15,8 +15,8 @@
 [phoenixNAP](https://phoenixnap.com/kb/how-to-install-anaconda-ubuntu-18-04-or-20-04)
 - Create environment
 ```
-conda create -n jobCenter python=3.6
-conda activate jobCenter
+conda create -n tms python=3.6
+conda activate tms
 ```
 
 - Install requirements
