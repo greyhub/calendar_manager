@@ -14866,7 +14866,8 @@ be a descendant of the grid when it is being dragged.
   min-height: calc(100vh - 50px);
   margin-top: 50px;
   padding: 30px;
-  background-color: #E5E5E5;
+  /* background-color: #E5E5E5; */
+  background-image:linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),  url('https://ctsv.hust.edu.vn/static/img/banner-home.d4038b4b.png?fbclid=IwAR0y7mCDcx1JqR3kltei1qyWR-QXoAv5S16Rm5qK2lNa7aeab6qmqEJfpRc') ;
   -webkit-transition: margin-left 0.3s ease;
   -o-transition: margin-left 0.3s ease;
   transition: margin-left 0.3s ease;
