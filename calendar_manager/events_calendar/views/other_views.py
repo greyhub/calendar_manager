@@ -176,8 +176,9 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
+        # if 'event_add' in request.POST:
         forms = self.form_class(request.POST or None)
-        if forms.is_valid() and forms.is_valid():
+        if forms.is_valid():
             form = forms.save(commit=False)
             form.user = request.user
             form.save()
