@@ -16,3 +16,5 @@ pytz==2020.1
 six==1.15.0
 sqlparse==0.2.4
 ortools
+datefinder
+google-api-python-client==1.6.2

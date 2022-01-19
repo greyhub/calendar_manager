@@ -20,7 +20,7 @@ from events_calendar.views.pipeline import pipeline
 import os
 
 path_to_integration = 'events_calendar/fixtures/event_data.json'
-path_to_integration_google = '/home/datdinh/Documents/20211/Tich_ho_he_thong/calendar_manager/google_calendar/data.json'
+path_to_integration_google = 'events_calendar/fixtures/data.json'
 path_to_demoData = 'events_calendar/views/data/Demo_data_1.json'
 path_to_Data = 'events_calendar/views/data/'
 path_to_recommendData = 'events_calendar/views/data/output/suggestion.json'
@@ -108,6 +108,7 @@ def load_event(request):
         )
     with open(path_to_integration_google,'w',encoding='utf-8') as f:
         json.dump(event_list, f, ensure_ascii=False, indent=4)
+        print("done")
 
     return HttpResponseRedirect(reverse("events_calendar:calendar"))
 
