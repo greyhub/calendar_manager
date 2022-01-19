@@ -7,7 +7,7 @@ from json.decoder import JSONDecodeError
 from response import success, ApiBadRequest, ApiInternalError
 from config import ExternalAPI
 from services import convert_class_time_table
-
+import json
 
 class RouteHandler:
 
@@ -16,6 +16,8 @@ class RouteHandler:
         request_data = json.dumps(body)
         time_table = requests.post(ExternalAPI.url, data=request_data, headers={'Content-Type': "application/json"})
         class_schedule = convert_class_time_table(time_table.json())
+        with open('time_table.json', 'w',  encoding='utf-8') as f:
+            json.dump(class_schedule, f, ensure_ascii=False, indent=4)
         response = class_schedule
         return success(response)
 

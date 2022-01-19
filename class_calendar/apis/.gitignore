@@ -1,3 +1,4 @@
 .idea
 __pycache__/
 class_calendar/apis/__pycache__
+time_table.json
