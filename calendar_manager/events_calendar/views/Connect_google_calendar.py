@@ -32,7 +32,7 @@ def get_token(path_file):
   # created automatically when the authorization flow completes for the first
   # time.
     if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('infor_user_google/token.json', scopes)
+        creds = Credentials.from_authorized_user_file('token.json', scopes)
   # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -69,7 +69,7 @@ def view_calendar():
         print(start,end_time,event['summary'])
 
 
-def create_event(start_time_str, end_time_str, summary,description=None, location=None):
+def create_event( service,start_time_str, end_time_str, summary,description=None, location=None):
     timezone = 'Asia/Ho_Chi_Minh'
     matches_start = list(datefinder.find_dates(start_time_str))
     matches_end = list(datefinder.find_dates(end_time_str))
@@ -99,17 +99,17 @@ def create_event(start_time_str, end_time_str, summary,description=None, locatio
     }
     return service.events().insert(calendarId='primary',body=event).execute()
 
-if __name__ == '__main__':
-    path_file = 'infor_user_google/client_secret_duy17.json'
+def connect_google():
+    path_file = 'events_calendar/views/infor_user_google/client_secret_duy17.json'
     try:
         service = get_token(path_file)
-        event = create_event("15 June 9 PM","15 June 10PM","Tich hop he thong")
+        event = create_event(service,"15 June 9 PM","15 June 10PM","Tich hop he thong")
         print('Event created: %s' % (event.get('htmlLink')))
 
-        with open('events_calendar/fixtures/data.json',encoding='utf-8') as event_data:
+        with open('events_calendar/views/fixtures/data.json',encoding='utf-8') as event_data:
             data_subjects = json.load(event_data)
             for subjects in data_subjects:
-                event = create_event(subjects['start_time_str'],subjects['end_time_str'],subjects['title'],subjects['description'])
+                event = create_event(service,subjects['start_time_str'],subjects['end_time_str'],subjects['title'],subjects['description'])
                 print('Event created: %s' % (event.get('htmlLink')))
 
     except HttpError as error:

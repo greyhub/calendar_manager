@@ -18,7 +18,7 @@
     <body class="app sidebar-mini">
         <!-- Navbar-->
         <header class="app-header" style="background-color: #990000 !important;">
-            <a class="app-header__logo" style="background-color: #990000 !important;" href="#">Event Calendar</a>
+            <a class="app-header__logo" style="background-color: #990000 !important;" href="#">TMS</a>
             <!-- Sidebar toggle button-->
             <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
             <!-- Navbar Right Menu-->
@@ -143,22 +143,29 @@
                     <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Events</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                     <ul class="treeview-menu">
                         <li>
-                            <a class="treeview-item" href="{% url 'events_calendar:running_events' %}"><i class="icon fa fa-circle-o"></i> Running</a>
+                            <a class="treeview-item" href="{% url 'events_calendar:running_events' %}"><i class="icon fad fa-running"></i> Running</a>
                         </li>
                         <li>
-                            <a class="treeview-item" href="{% url 'events_calendar:running_events' %}"><i class="icon fa fa-circle-o"></i> Upcoming</a>
+                            <a class="treeview-item" href="{% url 'events_calendar:running_events' %}"><i class="icon fad fa-running"></i> Upcoming</a>
                         </li>
                         <li>
-                            <a class="treeview-item" href="{% url 'events_calendar:all_events' %}"><i class="icon fa fa-circle-o"></i> All</a>
+                            <a class="treeview-item" href="{% url 'events_calendar:all_events' %}"><i class="icon fad fa-running"></i> All</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a class="app-menu__item" href="{% url 'events_calendar:view_group' %}"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Group Calendar</span></a>
+                    <a class="app-menu__item" href="{% url 'events_calendar:view_group' %}"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Group Calendar</span></a>
                 </li>
                 <li>
-                    <a class="app-menu__item" href="{% url 'events_calendar:load_ctt' %}"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Integration Ctt</span></a>
+                    <a class="app-menu__item" href="{% url 'events_calendar:load_ctt' %}"><i class="app-menu__icon fa fa-refresh"></i><span class="app-menu__label">Activate integration</span></a>
                 </li>
+                <li>
+                    <a class="app-menu__item" href="http://localhost:3000"><i class="app-menu__icon fa fa-graduation-cap"></i><span class="app-menu__label">Class-Activities System</span></a>
+                </li>
+                <li>
+                    <a class="app-menu__item" href="{% url 'events_calendar:connect_google_calendar' %}"><i class="app-menu__icon fa fa-google"></i><span class="app-menu__label">Google Calendar</span></a>
+                </li>
+
             </ul>
         </aside>
         <main class="app-content">

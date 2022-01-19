@@ -166,11 +166,5 @@
         "description": "Loại môn học: TN. Tuần học: 7,10,12,14,16. Đối tượng học: IT3080-N06",
         "start_time_str": "2022-01-21 15:05:00",
         "end_time_str": "2022-01-21 17:30:00"
-    },
-    {
-        "title": "Hop",
-        "description": "Nhanh",
-        "start_time_str": "2022-01-19 21:48:00",
-        "end_time_str": "2022-01-19 23:48:00"
     }
 ]

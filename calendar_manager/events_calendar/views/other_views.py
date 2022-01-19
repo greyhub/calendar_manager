@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 import json
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from events_calendar.views.Connect_google_calendar import connect_google
 from events_calendar.models import *
 from events_calendar.utils import Calendar
 from events_calendar.forms import EventForm, AddMemberForm, AddGroupForm, AddGroupMemberForm, AddGroupEvent, Recommendform
@@ -19,8 +20,8 @@ import pandas as pd
 from events_calendar.views.pipeline import pipeline
 import os
 
-path_to_integration = 'events_calendar/fixtures/event_data.json'
-path_to_integration_google = 'events_calendar/fixtures/data.json'
+path_to_integration = 'events_calendar/views/fixtures/event_data.json'
+path_to_integration_google = 'events_calendar/views/fixtures/data.json'
 path_to_demoData = 'events_calendar/views/data/Demo_data_1.json'
 path_to_Data = 'events_calendar/views/data/'
 path_to_recommendData = 'events_calendar/views/data/output/suggestion.json'
@@ -370,4 +371,10 @@ def export_data_of_group(request, pk):
         return redirect("events_calendar:calendar_group_member", pk)
 
     return render(request, "group_calendar/recommend_calendar.html", {"form": form})
+
+def load_data_google_calendar(request):
+    connect_google()
+    print("Access google calendar")
+    return HttpResponseRedirect(reverse("events_calendar:calendar"))
+
 
