@@ -1,0 +1,233 @@
+[
+    {
+        "user_id": 11,
+        "leader": true,
+        "title": "Thực tập doanh nghiệp",
+        "start": "2022-01-11 13:47:00",
+        "end": "2022-01-11 18:48:00"
+    },
+    {
+        "user_id": 11,
+        "leader": true,
+        "title": "Thực tập doanh nghiệp",
+        "start": "2022-01-12 13:47:00",
+        "end": "2022-01-12 17:49:00"
+    },
+    {
+        "user_id": 11,
+        "leader": true,
+        "title": "Báo cáo tích hợp",
+        "start": "2022-01-13 07:50:00",
+        "end": "2022-01-13 10:53:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "Học Tiếng Anh",
+        "start": "2022-01-10 05:07:00",
+        "end": "2022-01-10 06:06:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "Phân tích nghiệp vụ",
+        "start": "2021-12-29 12:30:00",
+        "end": "2021-12-29 16:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "Phân tích nghiệp vụ",
+        "start": "2022-01-05 12:30:00",
+        "end": "2022-01-05 16:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "Phân tích nghiệp vụ",
+        "start": "2022-01-12 12:30:00",
+        "end": "2022-01-12 16:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "Phân tích nghiệp vụ",
+        "start": "2022-01-19 12:30:00",
+        "end": "2022-01-19 16:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT4868-Khai phá Web",
+        "start": "2022-01-03 06:45:00",
+        "end": "2022-01-03 10:05:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT5419-Tích hợp Hệ thống thông tin",
+        "start": "2022-01-03 10:15:00",
+        "end": "2022-01-03 11:45:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT4079-Ngôn ngữ và phương pháp dịch",
+        "start": "2022-01-04 06:45:00",
+        "end": "2022-01-04 09:10:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT3011-Cấu trúc dữ liệu và thuật toán",
+        "start": "2022-01-04 15:05:00",
+        "end": "2022-01-04 17:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT3080-Mạng máy tính",
+        "start": "2022-01-05 06:45:00",
+        "end": "2022-01-05 09:10:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT5419-Tích hợp Hệ thống thông tin",
+        "start": "2022-01-06 10:15:00",
+        "end": "2022-01-06 11:45:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT4015-Nhập môn an toàn thông tin",
+        "start": "2022-01-06 14:10:00",
+        "end": "2022-01-06 17:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT3080-Mạng máy tính",
+        "start": "2022-01-07 15:05:00",
+        "end": "2022-01-07 17:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT4868-Khai phá Web",
+        "start": "2022-01-10 06:45:00",
+        "end": "2022-01-10 10:05:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT5419-Tích hợp Hệ thống thông tin",
+        "start": "2022-01-10 10:15:00",
+        "end": "2022-01-10 11:45:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT4079-Ngôn ngữ và phương pháp dịch",
+        "start": "2022-01-11 06:45:00",
+        "end": "2022-01-11 09:10:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT3011-Cấu trúc dữ liệu và thuật toán",
+        "start": "2022-01-11 15:05:00",
+        "end": "2022-01-11 17:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT3080-Mạng máy tính",
+        "start": "2022-01-12 06:45:00",
+        "end": "2022-01-12 09:10:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT5419-Tích hợp Hệ thống thông tin",
+        "start": "2022-01-13 10:15:00",
+        "end": "2022-01-13 11:45:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT4015-Nhập môn an toàn thông tin",
+        "start": "2022-01-13 14:10:00",
+        "end": "2022-01-13 17:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT3080-Mạng máy tính",
+        "start": "2022-01-14 15:05:00",
+        "end": "2022-01-14 17:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT4868-Khai phá Web",
+        "start": "2022-01-17 06:45:00",
+        "end": "2022-01-17 10:05:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT5419-Tích hợp Hệ thống thông tin",
+        "start": "2022-01-17 10:15:00",
+        "end": "2022-01-17 11:45:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT4079-Ngôn ngữ và phương pháp dịch",
+        "start": "2022-01-18 06:45:00",
+        "end": "2022-01-18 09:10:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT3011-Cấu trúc dữ liệu và thuật toán",
+        "start": "2022-01-18 15:05:00",
+        "end": "2022-01-18 17:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT3080-Mạng máy tính",
+        "start": "2022-01-19 06:45:00",
+        "end": "2022-01-19 09:10:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT5419-Tích hợp Hệ thống thông tin",
+        "start": "2022-01-20 10:15:00",
+        "end": "2022-01-20 11:45:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT4015-Nhập môn an toàn thông tin",
+        "start": "2022-01-20 14:10:00",
+        "end": "2022-01-20 17:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "IT3080-Mạng máy tính",
+        "start": "2022-01-21 15:05:00",
+        "end": "2022-01-21 17:30:00"
+    },
+    {
+        "user_id": 12,
+        "leader": false,
+        "title": "AOE moi choi",
+        "start": "2022-03-02 19:21:00",
+        "end": "2022-02-26 19:21:00"
+    }
+]
