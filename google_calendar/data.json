@@ -1,11 +1,5 @@
 [
     {
-        "title": "hop nhom",
-        "description": "Thao luan",
-        "start_time_str": "2022-01-18 11:32:00",
-        "end_time_str": "2022-01-18 00:33:00"
-    },
-    {
         "title": "Phân tích nghiệp vụ",
         "description": "IT5031",
         "start_time_str": "2021-12-29 12:30:00",
