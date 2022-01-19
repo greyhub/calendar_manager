@@ -2,6 +2,7 @@
 
     @author: Luong Nguyen, Dat Dinh, Mung Vu
     @release: 20/01/2022 (v1)
+    @license: MIT license
 
 ## Main Components
 - [Time Management System](#)
