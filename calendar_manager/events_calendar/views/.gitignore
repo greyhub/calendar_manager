@@ -1,0 +1,7 @@
+*__pycache__
+__*.csv
+generate_data.py
+data/tmp/*
+data/group/*
+data/leader/*
+data/output/*

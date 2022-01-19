@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+
+Event Details
+{% endblock %}
+
+{% block extracss %}
+
+{% endblock extracss %}
+
+{% block content %}
+    <div style="height: 100vh; background-image:linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),  url('https://ctsv.hust.edu.vn/static/img/banner-home.d4038b4b.png?fbclid=IwAR0y7mCDcx1JqR3kltei1qyWR-QXoAv5S16Rm5qK2lNa7aeab6qmqEJfpRc') ;" >
+        <div class="container" >
+            <div class="clearfix" >
+                <a class="btn btn-primary left" href="{% url 'events_calendar:calendar' %}"> Calendar </a>
+                <a class="btn btn-info right mr-3" style="float:right; border: none ; background-color: #990000;" href="{% url 'events_calendar:remove_event' event.pk%}">Delete Event</a>
+                <a class="btn btn-info right mr-2" style="float:right; border: none ; " href="{% url 'events_calendar:event_edit' event.pk %}"> Edit Event </a>
+            </div>
+    
+            <div class="clearfix">
+                <h3>Event Name: {{ event.title }}</h3>
+                <p>From <span style="color: gray;">{{ event.start_time }}</span> To <span style="color: gray;">{{ event.end_time }}</span></p>
+                <hr>
+                <p>{{ event.description }}</p>
+            </div>
+            <hr>
+            <div class="clearfix">
+                <a style="font-size: 22px; font-weight: 600;" class="" > Members of this Event</a>
+                <a class="btn btn-success " style="float:right; border: none ;" href="{% url 'events_calendar:add_eventmember' event.id %}"> Add Member </a>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Name</th>
+                      <th>Username</th>
+                      <th>Email</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for member in eventmember %}
+                    <tr role="row">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ member.user.first_name }} {{ member.user.last_name }}</td>
+                        <td>{{ member.user.username }}</td>
+                        <td>{{ member.user.email }}</td>
+                        <td>
+                            <a class="btn btn-danger" href="{% url 'events_calendar:remove_event' member.id %}">Remove</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+            </table>
+        </div>
+    </div>
+    
+{% endblock %}
