@@ -141,7 +141,7 @@ def suggest(year, week, dir):
     L = []
 
     # L.append(df2list(timetable['leader']))
-    leader_file = '/home/luong/Documents/hust/20211/tich-hop-httt/calendar_manager/calendar_manager/events_calendar/views/data/leader/' + str(year) + '_' + str(week) + '_' + 'leader.csv'
+    leader_file = 'events_calendar/views/data/leader/' + str(year) + '_' + str(week) + '_' + 'leader.csv'
     timetable['leader'] = pd.read_csv(leader_file)
     L.append(df2list(timetable['leader']))
     # print('____Leader____\n', timetable['leader'])
@@ -162,7 +162,7 @@ def suggest(year, week, dir):
     # print(timetable['leader'])
     # print(timetable_sg)
     # print(_meeting)
-    timetable_sg.to_csv('/home/luong/Documents/hust/20211/tich-hop-httt/calendar_manager/calendar_manager/events_calendar/views/data/output/suggestion.csv', index=False)
+    timetable_sg.to_csv('events_calendar/views/data/output/suggestion.csv', index=False)
 
     _events = []
     for m in _meeting:
@@ -183,7 +183,7 @@ def suggest(year, week, dir):
     json_object = json.dumps(_events, indent = 4)
     
     # Writing to sample.json
-    with open("/home/luong/Documents/hust/20211/tich-hop-httt/calendar_manager/calendar_manager/events_calendar/views/data/output/suggestion.json", "w") as outfile:
+    with open("events_calendar/views/data/output/suggestion.json", "w") as outfile:
         outfile.write(json_object)
 
 

@@ -53,7 +53,7 @@ def read_data(input, dir):
     return
 
 def std_data(input, output, dir):
-    _fmtperson = pd.read_csv('/home/luong/Documents/hust/20211/tich-hop-httt/calendar_manager/calendar_manager/events_calendar/views/data/'+'data_format.csv')
+    _fmtperson = pd.read_csv('events_calendar/views/data/'+'data_format.csv')
     _fmtperson = _fmtperson.set_index('Hour')
 
     _person = pd.read_csv(input)
