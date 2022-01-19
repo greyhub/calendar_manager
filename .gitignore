@@ -3,3 +3,6 @@ node_modules/
 env/
 *__pycache__*
 .vscode/
+calendar_manager/token.json
+
+*client_secret_duy17.json

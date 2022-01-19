@@ -1,6 +1,6 @@
 # FullCalendar
 
-A full-sized drag & drop JavaScript event calendar
+A full-sized drag & drop JavaScript Time Management System
 
 - [Project website and demos](http://fullcalendar.io/)
 - [Documentation](http://fullcalendar.io/docs)
