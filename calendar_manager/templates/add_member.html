@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 
 {% block title %}
 Add EventMember
@@ -9,7 +9,7 @@ Add EventMember
   <a class="btn btn-info left" href="{% url 'events_calendar:calendar' %}"> Calendar </a>
 </div>
 
-<form method="post">
+<form method="post" style="padding: 5px 190px;">
   {% csrf_token %}
   <table class="form form-table">
     {{ form }}
