@@ -255,7 +255,7 @@ class GroupCalendarView(generic.View):
         members = list(GroupMember.objects.filter(group_id=pk).all())
         name_group = Group.objects.get(id=pk)
         event_list = []
-        color = ["blue","green","red","yellow","black","purple","brown","grey"]
+        color = ["#099688","#17a2b8","#556b2f","yellow","black","purple","brown","grey"]
         blue = "blue"
         for index, member in enumerate(members):
             setattr(member, 'color', color[index])
@@ -281,7 +281,7 @@ class GroupCalendarView(generic.View):
                     "title": event.title,
                     "start": event.start_time.strftime("%Y-%m-%d %H:%M:%S"),
                     "end": event.end_time.strftime("%Y-%m-%d %H:%M:%S"),
-                    "backgroundColor": "rgb(47, 224, 255)",
+                    "backgroundColor": "rgb(82, 20, 76)",
                     "background": "rgb(47, 224, 255)",
                     "url": reverse('events_calendar:list_detail_groupmember', args=[pk])
                 }
@@ -296,7 +296,7 @@ class GroupCalendarView(generic.View):
                             "title":subject['title'],
                             "start": subject['start'],
                             "end":subject['end'],
-                            "backgroundColor": "rgb(255, 191, 0)"
+                            "backgroundColor": "rgba(218, 167, 15, 0.692)"
                         }
                     )
                     check_recommend = 1
