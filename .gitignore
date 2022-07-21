@@ -1,2 +1,13 @@
+<<<<<<< HEAD
 *__pycache__*
 node_modules
+=======
+.idea
+node_modules/
+env/
+*__pycache__*
+.vscode/
+calendar_manager/token.json
+
+*client_secret_duy17.json
+>>>>>>> 837a0d938fdd58684279fb32f8a50805bb306fe1
